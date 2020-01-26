@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { AppState } from './reducers';
+import { fetchApiDataInit } from './actions';
 
 @Component({
   selector: 'app-root',
@@ -8,8 +11,11 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'frontend';
 
-  fetchApiData() {
+  constructor(private store$: Store<AppState>) {
+  }
 
+  fetchApiData() {
+    this.store$.dispatch(fetchApiDataInit());
   }
 
 }
