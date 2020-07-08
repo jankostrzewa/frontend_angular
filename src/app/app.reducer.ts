@@ -1,20 +1,19 @@
-
 import {
-  ActionReducer,
   ActionReducerMap,
-  createFeatureSelector,
-  createSelector,
   MetaReducer
 } from '@ngrx/store';
 import { environment } from '../environments/environment';
-import { RouterReducerState } from '@ngrx/router-store';
-import { WeatherForecastsState } from './weatherforecasts.reducer';
+import { RouterReducerState, routerReducer } from '@ngrx/router-store';
+import * as WeatherForecasts from './weatherforecasts.reducer';
 
 export interface AppState {
+  router: RouterReducerState<any>;
+  weatherForecast: WeatherForecasts.WeatherForecastsState;
 }
 
 export const reducers: ActionReducerMap<AppState> = {
-
+  router: routerReducer,
+  weatherForecast: WeatherForecasts.reducer
 };
 
 

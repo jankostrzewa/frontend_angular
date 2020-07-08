@@ -7,7 +7,7 @@ export const fetchApiDataInit = createAction(
 
 export const fetchApiDataSuccess = createAction(
   '[Weather Forecast]Fetch API data successfull',
-  props<{data: WeatherForecast}>()
+  props<{data: WeatherForecast[]}>()
 );
 
 export const fetchApiDataFailure = createAction(

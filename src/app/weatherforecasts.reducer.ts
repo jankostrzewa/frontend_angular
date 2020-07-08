@@ -1,25 +1,33 @@
 import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
 import { WeatherForecast } from './models/weatherForecast';
-import { createReducer, Action } from '@ngrx/store';
+import { createReducer, Action, on, State } from '@ngrx/store';
+import { fetchApiDataSuccess, fetchApiDataInit, fetchApiDataFailure } from './actions';
 
 export interface WeatherForecastsState extends EntityState<WeatherForecast> {
   selectedWeatherForecast: number | null;
-}
-
-function selectUserId(a: WeatherForecast): string {
-  return a.id;
+  loading: boolean;
 }
 
 const adapter: EntityAdapter<WeatherForecast> = createEntityAdapter<WeatherForecast>({
   selectId: selectUserId
 });
 
+function selectUserId(a: WeatherForecast): string {
+  return a.id;
+}
+
 export const initialState: WeatherForecastsState = adapter.getInitialState({
-  selectedWeatherForecast: null
+  selectedWeatherForecast: null,
+  loading: false
 });
 
-const userReducer = createReducer(initialState);
-
 export function reducer(state: WeatherForecastsState | undefined, action: Action) {
-  return userReducer(state, action);
+  return weatherForecastsReducer(state, action);
 }
+
+const weatherForecastsReducer = createReducer(
+  initialState,
+  on(fetchApiDataInit, (state) => ({...state, loading: true})),
+  on(fetchApiDataSuccess, (state, action) => adapter.upsertMany(action.data, {...state, loading: false})),
+  on(fetchApiDataFailure, (state, action) => ({...state, loading: false})),
+  );

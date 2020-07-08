@@ -12,6 +12,6 @@ export class WeatherDataService {
   constructor(private httpClient: HttpClient) { }
 
   getForecasts() {
-    return this.httpClient.get<WeatherForecast>(`${this.url}/weatherforecast`);
+    return this.httpClient.get<WeatherForecast[]>(`${this.url}/weatherforecast`);
   }
 }
