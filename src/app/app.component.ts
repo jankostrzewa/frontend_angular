@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { AppState } from './reducers';
+import { AppState } from './app.reducer';
 import { fetchApiDataInit } from './actions';
 
 @Component({
@@ -19,4 +19,3 @@ export class AppComponent {
   }
 
 }
-
