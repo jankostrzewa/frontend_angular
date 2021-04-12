@@ -1,22 +1,19 @@
 import { Component } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { AppState } from './reducers';
-import { fetchApiDataInit } from './actions';
+import { EMPTY, Observable, of } from 'rxjs';
+import { WeatherForecast } from './models/weatherForecast';
+import { WeatherDataService } from './weather-data.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
   title = 'frontend';
-
-  constructor(private store$: Store<AppState>) {
-  }
+  data$: Observable<WeatherForecast> = EMPTY;
+  constructor(private weatherDataService: WeatherDataService) { }
 
   fetchApiData() {
-    this.store$.dispatch(fetchApiDataInit());
+    this.data$ = this.weatherDataService.getForecasts();
   }
-
 }
-
