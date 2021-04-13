@@ -22,6 +22,6 @@ export class WeatherDataService {
       datetime: new Date(),
       location: 'London',
       temperature: Math.random() * 30
-    }
+    };
   }
 }
